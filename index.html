@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+        }
+        #main-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 400px;
+            border: black 2px solid;
+            border-radius: 8px;
+            width: 300px;
+            margin-top: 10%;
+            background-color: white;
+        }
+       
+        img {
+            height: 200px;
+        }
+
+        * {
+            padding: 0px;
+            margin: 0px;
+            box-sizing: border-box;
+        }
+
+        .main-container {
+            height: 350px;
+            width: 300px;
+            border-radius: 15px;
+            display: inline-block;
+            position: absolute;
+            top: 200px;
+            left: 40%;
+        }
+
+        .image {
+            height: 300px;
+            width: 400px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+
+        }
+
+        .countryname {
+            margin: auto;
+            text-align: center;
+            height: 70px;
+        }
+
+        .country_data {
+            display: flex;
+            justify-content: space-evenly;
+            margin: 5px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main-container">
+    </div>
+
+    <script>
+        const a = document.querySelector("#main-container");
+        const request = new XMLHttpRequest();
+        request.open('GET', "https://restcountries.com/v3.1/name/nepal");
+        request.send();
+        request.addEventListener("load", function () {  //load=jasa hi website open karega event fire hota hai
+            // console.log(this.responseText) returns the well format data of api
+            const [data] = JSON.parse(this.responseText);
+            // console.log(data)   well format ma dega data 
+            const htmlData = `
+        <div class="container">
+            <div class="image">
+                <img src="${data.flags.svg}" alt="">
+            </div>
+            <div class="countryname">
+                <h2>${data.name.common}</h2>
+                <h4 style="color: grey;margin-top: 9px; ">Capital:-${data.capital}</h4>
+            </div>
+            
+        </div>`;
+
+            a.insertAdjacentHTML("afterbegin", htmlData);  //after begin means that the code will be enter after begin of elemnt
+
+
+        })
+
+
+    </script>
+</body>
+
+</html>
